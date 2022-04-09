@@ -1,7 +1,8 @@
 .*
 
-!.gitignore
 !.editorconfig
+!.gitattributes
+!.gitignore
 
 vendor
 
