@@ -1,0 +1,19 @@
+{
+    "name": "samlitowitz/php-hephaestus",
+    "description": "A tool to assist in generating models, validation, and database implementation.",
+    "type": "project",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Sam Litowitz",
+            "email": "samlitowitz@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "PhpHephaestus\\": "src/"
+        }
+    },
+    "require": {}
+}
