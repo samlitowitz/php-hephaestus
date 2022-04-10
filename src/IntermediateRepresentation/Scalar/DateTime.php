@@ -1,7 +1,7 @@
 <?php
 
-namespace PhPHephaestus\Scalar;
+namespace PhpHephaestus\IntermediateRepresentation\Scalar;
 
-use PhPHephaestus\Scalar;
+use PhpHephaestus\IntermediateRepresentation\Scalar;
 
 final class DateTime implements Scalar {}

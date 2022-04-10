@@ -1,5 +1,5 @@
 <?php
 
-namespace PhPHephaestus;
+namespace PhpHephaestus\IntermediateRepresentation;
 
 interface Type {}
