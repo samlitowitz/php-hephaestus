@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+    php:
+        image: mobtitude/php-xdebug:7.4-cli
+        entrypoint: ["/usr/local/bin/php"]
+        command: ["/app/bin/php-hephaestus"]
+        depends_on:
+            -   mysql
+        volumes:
+            - ./:/app
+
+    mysql:
+        image: mysql/mysql:5.7
+        environment:
+            - MYSQL_DATABASE=mysql
+            - MYSQL_ROOT_PASSWORD=password
