@@ -15,5 +15,17 @@
             "PhpHephaestus\\": "src/"
         }
     },
-    "require": {}
+    "autoload-dev": {
+        "psr-4": {
+            "PhpHephaestus\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "nikic/php-parser": "^4.13"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }

@@ -2,4 +2,8 @@
 
 namespace PhpHephaestus\IntermediateRepresentation;
 
-interface Type {}
+use JsonSerializable;
+
+interface Type extends JsonSerializable
+{
+}

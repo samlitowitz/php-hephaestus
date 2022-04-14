@@ -4,11 +4,10 @@ namespace PhpHephaestus\IntermediateRepresentation;
 
 use Countable;
 use Iterator;
-use JsonSerializable;
 
-final class PropertyCollection implements Countable, Iterator, JsonSerializable
+final class EntityCollection implements Countable, Iterator
 {
-	/** @var []Property */
+	/** @var []Entity */
 	private $items = [];
 	/** @var ?int */
 	private $iter = null;
@@ -23,7 +22,7 @@ final class PropertyCollection implements Countable, Iterator, JsonSerializable
 		}
 	}
 
-	public function current(): ?Property
+	public function current(): ?Entity
 	{
 		if ($this->iter === null) {
 			return null;
@@ -66,18 +65,8 @@ final class PropertyCollection implements Countable, Iterator, JsonSerializable
 		return count($this->items);
 	}
 
-	public function add(Property $property)
+	public function add(Entity $entity)
 	{
-		$this->items[] = $property;
-	}
-
-	public function jsonSerialize(): array
-	{
-		$json = [];
-		/** @var Property $item */
-		foreach ($this->items as $item) {
-			$json[] = $item->jsonSerialize();
-		}
-		return $json;
+		$this->items[] = $entity;
 	}
 }

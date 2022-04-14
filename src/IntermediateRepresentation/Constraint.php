@@ -2,4 +2,6 @@
 
 namespace PhpHephaestus\IntermediateRepresentation;
 
-interface Scalar extends Type {}
+interface Constraint
+{
+}

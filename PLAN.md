@@ -23,6 +23,7 @@
 # Outputs
 # Models
 1. Plain old objects w/proper type hinting on getters, setters, and deserialize from array
+   1. Validate on deserialize and set
 
 # Data Layer
 1. Repository interface(s)
