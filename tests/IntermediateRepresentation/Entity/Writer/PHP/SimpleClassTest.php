@@ -21,7 +21,7 @@ use PhpHephaestus\OS\File;
 use PhpHephaestus\PSR\PSR1;
 use PHPUnit\Framework\TestCase;
 
-final class SimpleTest extends TestCase
+final class SimpleClassTest extends TestCase
 {
 	/** @var string[] $filesToDelete */
 	private static $filesToDelete;
