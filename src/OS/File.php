@@ -10,10 +10,17 @@ use RuntimeException;
 final class File implements Closer, Writer {
 	/** @var resource $h */
 	private $h;
+	/** @var string */
+	private $name;
+
+	private function __construct(string $name)
+	{
+		$this->setName($name);
+	}
 
 	public static function openFile(string $filename, string $mode, bool $use_include_path = false, $context = null): File
 	{
-		$f = new File();
+		$f = new File($filename);
 		$h = fopen($filename, $mode, $use_include_path, $context);
 		if ($h === false) {
 			throw new RuntimeException(
@@ -24,7 +31,7 @@ final class File implements Closer, Writer {
 				)
 			);
 		}
-		$f->h = $h;
+		$f->setHandle($h);
 		return $f;
 	}
 
@@ -49,5 +56,20 @@ final class File implements Closer, Writer {
 			throw new RuntimeException('Write failed: incomplete write');
 		}
 		return $n;
+	}
+
+	private function setHandle($h): void
+	{
+		$this->h = $h;
+	}
+
+	public function getName(): string
+	{
+		return $this->name;
+	}
+
+	private function setName(string $name): void
+	{
+		$this->name = $name;
 	}
 }
