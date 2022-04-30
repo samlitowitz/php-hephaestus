@@ -43,12 +43,11 @@ final class SimpleClassTest extends TestCase
 	 * @dataProvider scalar_props_entity_getters_and_setters_provider
 	 */
 	public function test_scalar_props_entity_getters_and_setters(
-		string $className,
 		string $fnSuffix,
 		callable $compareFn,
 		$expected
 	): void {
-		$obj = new $className();
+		$obj = new ClassA();
 		\call_user_func([$obj, 'set' . $fnSuffix], $expected);
 		$result = \call_user_func([$obj, 'get' . $fnSuffix]);
 		$this->assertTrue($compareFn($expected, $result));
