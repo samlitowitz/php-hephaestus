@@ -15,8 +15,10 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\String_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Time;
-use PhpHephaestus\IO\Entity\Writer\PHP\Simple;
+use PhpHephaestus\IO\Entity\Writer\PHP\SimpleClass;
+use PhpHephaestus\IO\Type\Writer\PHP\Simple;
 use PhpHephaestus\OS\File;
+use PhpHephaestus\PSR\PSR1;
 use PHPUnit\Framework\TestCase;
 
 final class SimpleTest extends TestCase
@@ -54,6 +56,7 @@ final class SimpleTest extends TestCase
 
 	public function scalar_props_entity_getters_and_setters_provider()
 	{
+		$psr1 = new PSR1();
 		$entity = self::scalarPropsEntity();
 		$properties = $entity->getProperties();
 		$testCases = [];
@@ -107,9 +110,9 @@ final class SimpleTest extends TestCase
 
 			$testCases[$property->getName()] = [
 				// $className
-				__NAMESPACE__ . '\\' . self::snakeCaseToStudlyCaps($entity->getName()),
+				__NAMESPACE__ . '\\' . $psr1->snakeCaseToStudlyCaps($entity->getName()),
 				// $fnSuffix
-				self::snakeCaseToCamelCase($property->getName()),
+				$psr1->snakeCaseToCamelCase($property->getName()),
 				// $compareFn,
 				$compareFn,
 				// $expected,
@@ -121,14 +124,15 @@ final class SimpleTest extends TestCase
 
 	private static function setupScalarPropsEntity(): void
 	{
+		$psr1 = new PSR1();
 		$entity = self::scalarPropsEntity();
 		$f = File::openFile(
-			sprintf('%s/%s.php', __DIR__, self::snakeCaseToStudlyCaps($entity->getName())),
+			sprintf('%s/%s.php', __DIR__, $psr1->snakeCaseToStudlyCaps($entity->getName())),
 			'w'
 		);
 
 		try {
-			$w = new Simple($f, new \PhpHephaestus\IO\Type\Writer\PHP\Simple(), __NAMESPACE__);
+			$w = new SimpleClass($f, new Simple(), __NAMESPACE__);
 			$w->write($entity);
 		} finally {
 			$f->close();
@@ -154,26 +158,5 @@ final class SimpleTest extends TestCase
 				]
 			)
 		);
-	}
-
-	private static function snakeCaseToCamelCase(string $s): string
-	{
-		$s = \preg_replace('/[^a-zA-Z0-9]/', ' ', $s);
-		$s = \preg_replace_callback('/\s([a-zA-Z])/', self::toUpperFn(), $s);
-		return \preg_replace('/[^a-zA-Z0-9]/', '', $s);
-	}
-
-	private static function snakeCaseToStudlyCaps(string $s): string
-	{
-		$s = \preg_replace('/[^a-zA-Z0-9]/', ' ', $s);
-		$s = \preg_replace_callback('/\s([a-zA-Z])/', self::toUpperFn(), $s);
-		return ucfirst(\preg_replace('/[^a-zA-Z0-9]/', '', $s));
-	}
-
-	private static function toUpperFn(): callable
-	{
-		return function (array $matches): string {
-			return strtoupper($matches[0]);
-		};
 	}
 }
