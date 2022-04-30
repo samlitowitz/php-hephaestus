@@ -5,7 +5,7 @@ namespace PhpHephaestus\Tests\IntermediateRepresentation\Entity\Reader\MySQL;
 use PDO;
 use PhpHephaestus\IntermediateRepresentation\Property;
 use PhpHephaestus\IntermediateRepresentation\PropertyCollection;
-use PhpHephaestus\IntermediateRepresentation\Type\Scalar\FloatType;
+use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\Entity\Reader\MySQL\TableReader;
 use PHPUnit\Framework\TestCase;
@@ -119,10 +119,10 @@ SQL,
 			$tableName
 		);
 		$expectedProps = new PropertyCollection([
-			new Property('decimal_both', new FloatType()),
-			new Property('decimal_one', new FloatType()),
-			new Property('numeric_both', new FloatType()),
-			new Property('numeric_one', new FloatType()),
+			new Property('decimal_both', new Float_()),
+			new Property('decimal_one', new Float_()),
+			new Property('numeric_both', new Float_()),
+			new Property('numeric_one', new Float_()),
 		]);
 		self::$pdo->query($createTableQuery);
 
@@ -153,8 +153,8 @@ SQL,
 			$tableName
 		);
 		$expectedProps = new PropertyCollection([
-			new Property('float', new FloatType()),
-			new Property('double_precision', new FloatType()),
+			new Property('float', new Float_()),
+			new Property('double_precision', new Float_()),
 		]);
 		self::$pdo->query($createTableQuery);
 
