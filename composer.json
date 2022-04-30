@@ -10,6 +10,7 @@
         }
     ],
     "minimum-stability": "stable",
+    "sort-packages": true,
     "autoload": {
         "psr-4": {
             "PhpHephaestus\\": "src/"
@@ -21,6 +22,7 @@
         }
     },
     "require": {
+        "php": ">=8.0",
         "ext-json": "*",
         "ext-pdo": "*",
         "nikic/php-parser": "^4.13",
