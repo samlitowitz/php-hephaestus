@@ -1,7 +1,7 @@
 version: "3.9"
 services:
     php:
-        image: mobtitude/php-xdebug:7.4-cli
+        image: mobtitude/php-xdebug:8.0-cli
         entrypoint: ["/usr/local/bin/php"]
         environment:
             - MYSQL_HOST=mysql
