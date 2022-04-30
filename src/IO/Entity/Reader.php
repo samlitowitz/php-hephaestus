@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpHephaestus\IntermediateRepresentation\Entity;
+namespace PhpHephaestus\IO\Entity;
 
 use PhpHephaestus\IntermediateRepresentation\EntityCollection;
 

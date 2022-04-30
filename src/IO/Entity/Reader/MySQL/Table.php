@@ -1,18 +1,18 @@
 <?php
 
-namespace PhpHephaestus\IntermediateRepresentation\Entity\Reader\MySQL;
+namespace PhpHephaestus\IO\Entity\Reader\MySQL;
 
 use PDO;
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IntermediateRepresentation\EntityCollection;
 use PhpHephaestus\IntermediateRepresentation\Property;
 use PhpHephaestus\IntermediateRepresentation\PropertyCollection;
-use PhpHephaestus\IntermediateRepresentation\Type\Scalar\FloatType;
+use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\UnknownType;
-use PhpHephaestus\IntermediateRepresentation\Entity\Reader;
+use PhpHephaestus\IO\Entity\Reader;
 
-final class TableReader implements Reader {
+final class Table implements Reader {
 	/** @var PDO */
 	private $pdo;
 	/** @var string */
@@ -47,7 +47,7 @@ final class TableReader implements Reader {
 				case \preg_match('/^NUMERIC\([0-9]+(,\s*[0-9]+)?\)/i', $colType):
 				case \preg_match('/^FLOAT/i', $colType):
 				case \preg_match('/^DOUBLE(\sPRECISION)?/i', $colType):
-					$props->add(new Property($colName, new FloatType()));
+					$props->add(new Property($colName, new Float_()));
 					break;
 				default:
 					$props->add(new Property($colName, new UnknownType()));
