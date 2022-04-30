@@ -19,6 +19,7 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\PrettyPrinter\Standard;
+use RuntimeException;
 
 final class SimpleClass implements Writer
 {
@@ -132,7 +133,7 @@ final class SimpleClass implements Writer
 		$code = $prettyPrinter->prettyPrintFile([$namespace]);
 		$n = $this->w->write($code);
 		if ($n !== strlen($code)) {
-			// TODO: exception
+			throw new RuntimeException('Write failed: incomplete write');
 		}
 	}
 }
