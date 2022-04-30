@@ -4,7 +4,7 @@ namespace PhpHephaestus\IntermediateRepresentation\Type\Scalar;
 
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar;
 
-final class FloatType implements Scalar {
+final class Float_ implements Scalar {
 	public function jsonSerialize(): array
 	{
 		return [
