@@ -1,0 +1,18 @@
+{
+	"source": {
+		"mysqlIntegerTest": {
+			"class": "PhpHephaestus\\IO\\Entity\\MySQL\\Table",
+			"config": {
+				"connection": {
+					"host": "mysql",
+					"database": "db",
+					"port": "3306",
+					"user": "root",
+					"password": "password"
+				},
+				"table": "integer_test"
+			}
+		}
+	},
+	"sink": {}
+}
