@@ -7,7 +7,7 @@ use PhpHephaestus\IntermediateRepresentation\Property;
 use PhpHephaestus\IntermediateRepresentation\PropertyCollection;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
-use PhpHephaestus\IntermediateRepresentation\Entity\Reader\MySQL\TableReader;
+use PhpHephaestus\IO\Entity\MySQL\Table;
 use PHPUnit\Framework\TestCase;
 
 use RuntimeException;
@@ -72,7 +72,7 @@ final class ReaderTest extends TestCase
 	{
 		$tableName = 'integer_test';
 		$createTableQuery = sprintf(
-<<<'SQL'
+			<<<'SQL'
 CREATE TABLE `%s` (
 	`int` INT,
 	`smallint` SMALLINT,
@@ -90,7 +90,7 @@ SQL,
 		]);
 		self::$pdo->query($createTableQuery);
 
-		$r = new TableReader(self::$pdo, $tableName);
+		$r = new Table(self::$pdo, $tableName);
 		$entities = $r->read();
 
 		$this->assertEquals(1, $entities->count());
@@ -126,7 +126,7 @@ SQL,
 		]);
 		self::$pdo->query($createTableQuery);
 
-		$r = new TableReader(self::$pdo, $tableName);
+		$r = new Table(self::$pdo, $tableName);
 		$entities = $r->read();
 
 		$this->assertEquals(1, $entities->count());
@@ -158,7 +158,7 @@ SQL,
 		]);
 		self::$pdo->query($createTableQuery);
 
-		$r = new TableReader(self::$pdo, $tableName);
+		$r = new Table(self::$pdo, $tableName);
 		$entities = $r->read();
 
 		$this->assertEquals(1, $entities->count());
