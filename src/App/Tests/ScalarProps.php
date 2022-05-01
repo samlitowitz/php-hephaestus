@@ -14,9 +14,9 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\String_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Time;
-use PhpHephaestus\IO\Entity\Writer\PHP\SimpleClass;
-use PhpHephaestus\IO\Entity\Writer\PHP\SimplePHPUnit;
-use PhpHephaestus\IO\Type\Writer\PHP\Simple;
+use PhpHephaestus\IO\Entity\PHP\SimpleClass;
+use PhpHephaestus\IO\Entity\PHP\SimplePHPUnit;
+use PhpHephaestus\IO\Type\PHP\Simple;
 use PhpHephaestus\OS\File;
 use PhpHephaestus\PSR\PSR1;
 
@@ -68,7 +68,7 @@ final class ScalarProps
 		}
 	}
 
-	private static function scalarPropsEntity(): Entity
+	public static function scalarPropsEntity(): Entity
 	{
 		return new Entity(
 			'php_simple_class_scalar_props',

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpHephaestus\App\Command\Generate;
+namespace PhpHephaestus\App\Console\Command\Generate;
 
 use PhpHephaestus\App\Tests\ScalarProps;
 use Symfony\Component\Console\Command\Command;
@@ -8,13 +8,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class Tests extends Command {
+final class Tests extends Command
+{
 	protected static $defaultName = 'generate:tests';
 	protected static $defaultDescription = 'Generate PHPUnit tests and dependencies';
-
 	private const TEST_DIR_ARG = 'test-dir';
 	private const NAMESPACE_ARG = 'namespace';
-
 	private string $testsDir;
 	private string $namespace;
 
