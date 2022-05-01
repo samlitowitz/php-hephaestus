@@ -34,3 +34,10 @@
 ### "Object Mapper"
 1. MySQL
 2. PgSQL
+
+# CLI
+1. How to configure?
+   1. available sources/sinks?
+   2. credential security
+   3. host/port/etc flexibility
+2. options/flags for transpiling

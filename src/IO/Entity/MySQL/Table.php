@@ -11,8 +11,10 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\UnknownType;
 use PhpHephaestus\IO\Entity\Reader;
+use PhpHephaestus\IO\Entity\Writer;
 
-final class Table implements Reader {
+final class Table implements Reader, Writer
+{
 	/** @var PDO */
 	private $pdo;
 	/** @var string */
@@ -24,16 +26,18 @@ final class Table implements Reader {
 		$this->tableName = $tableName;
 	}
 
+	public static function fromConfig(array $config): Table
+	{
+	}
+
 	public function read(): EntityCollection
 	{
 		$stmt = $this->pdo->query('DESCRIBE ' . $this->tableName);
 		$columnDefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$props = new PropertyCollection([]);
 		foreach (
-			$columnDefs as [
-				'Field' => $colName,
-				'Type' => $colType,
-			]
+			$columnDefs as ['Field' => $colName,
+			'Type' => $colType,]
 		) {
 			switch (true) {
 				case \preg_match('/^INTEGER\([0-9]+\)/i', $colType):
@@ -54,9 +58,13 @@ final class Table implements Reader {
 			}
 		}
 
-
 		return new EntityCollection([
 			new Entity($this->tableName, $props),
 		]);
+	}
+
+	public function write(Entity $entity): void
+	{
+		// TODO: Implement write() method.
 	}
 }

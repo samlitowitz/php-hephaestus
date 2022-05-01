@@ -2,7 +2,6 @@
 
 namespace PhpHephaestus\IO\Entity\Writer\PHP;
 
-use DateInterval;
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Binary;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Currency;
@@ -22,11 +21,9 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\Closure;
-use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -38,8 +35,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
