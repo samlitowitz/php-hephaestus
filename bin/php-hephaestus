@@ -1,12 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-use PhpHephaestus\App\Command\Generate\Tests as GenerateTestsCommand;
-use Symfony\Component\Console\Application;
+use PhpHephaestus\App\Console\Command\Generate\Tests as GenerateTestsCommand;
+use PhpHephaestus\App\Console\CLI;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$app = new Application();
+$app = new CLI();
 
 $app->add(new GenerateTestsCommand(__DIR__ . '/../tests', 'PhpHephaestus\\Tests\\'));
 
