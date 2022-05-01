@@ -50,7 +50,7 @@ final class SimpleClass implements Writer
 		foreach ($properties as $property) {
 			$camelCase = $psr1->toCamelCase($property->getName());
 			$studlyCase = $psr1->toStudlyCaps($property->getName());
-			$typ = $this->tw->write($property->getType());
+			$typ = '?' . $this->tw->write($property->getType());
 
 			$propertyStmt = new Property(
 				Class_::MODIFIER_PRIVATE,
