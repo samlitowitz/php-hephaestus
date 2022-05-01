@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpHephaestus\IO\Entity\Writer\PHP;
+namespace PhpHephaestus\IO\Entity\PHP;
 
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IO\Entity\Writer;

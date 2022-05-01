@@ -1,8 +1,9 @@
 <?php
 
-namespace PhpHephaestus\IO\Entity\Reader\MySQL;
+namespace PhpHephaestus\IO\Entity\MySQL;
 
 use PDO;
+use PhpHephaestus\App\Console\Configurable;
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IntermediateRepresentation\EntityCollection;
 use PhpHephaestus\IntermediateRepresentation\Property;
@@ -11,9 +12,8 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\UnknownType;
 use PhpHephaestus\IO\Entity\Reader;
-use PhpHephaestus\IO\Entity\Writer;
 
-final class Table implements Reader, Writer
+final class Table implements Configurable, Reader
 {
 	/** @var PDO */
 	private $pdo;
@@ -26,8 +26,9 @@ final class Table implements Reader, Writer
 		$this->tableName = $tableName;
 	}
 
-	public static function fromConfig(array $config): Table
+	public function configure(array $config): void
 	{
+		// TODO: Implement configure() method.
 	}
 
 	public function read(): EntityCollection
@@ -61,10 +62,5 @@ final class Table implements Reader, Writer
 		return new EntityCollection([
 			new Entity($this->tableName, $props),
 		]);
-	}
-
-	public function write(Entity $entity): void
-	{
-		// TODO: Implement write() method.
 	}
 }
