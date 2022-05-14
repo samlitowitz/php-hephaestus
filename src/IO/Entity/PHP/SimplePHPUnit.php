@@ -2,6 +2,7 @@
 
 namespace PhpHephaestus\IO\Entity\PHP;
 
+use InvalidArgumentException;
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Binary;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Currency;
@@ -12,6 +13,7 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Float_;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Time;
 use PhpHephaestus\IO\Entity\Writer;
+use PhpHephaestus\IO\Type\PHP\Simple;
 use PhpHephaestus\PSR\PSR1;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
@@ -58,6 +60,50 @@ final class SimplePHPUnit implements Writer
 		$this->w = $w;
 		$this->tw = $tw;
 		$this->namespace = $namespace;
+	}
+
+	public static function configure(array $config): self
+	{
+		if (!\array_key_exists('outputDirectory', $config)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'%s: missing required configuration option `outputDirectory`',
+					__CLASS__
+				)
+			);
+		}
+
+		if (!\array_key_exists('namespace', $config)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'%s: missing required configuration option `namespace`',
+					__CLASS__
+				)
+			);
+		}
+
+		if (!\array_key_exists('className', $config)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'%s: missing required configuration option `className`',
+					__CLASS__
+				)
+			);
+		}
+
+		[
+			'outputDirectory' => $outputDirectory,
+			'namespace' => $namespace,
+			'className' => $className,
+		] = $config;
+
+
+		$psr1 = new PSR1();
+		$f = File::openFile(
+			sprintf('%s/%sTest.php', $outputDirectory, $psr1->snakeCaseToStudlyCaps($className)),
+			'w'
+		);
+		return new self($f, new Simple(), $namespace);
 	}
 
 	public function write(Entity $entity): void

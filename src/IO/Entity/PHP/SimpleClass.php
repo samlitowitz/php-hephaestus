@@ -81,7 +81,7 @@ final class SimpleClass implements Configurable, Writer
 
 		$psr1 = new PSR1();
 		$f = File::openFile(
-			sprintf('%s/%sTest.php', $outputDirectory, $psr1->snakeCaseToStudlyCaps($className)),
+			sprintf('%s/%s.php', $outputDirectory, $psr1->snakeCaseToStudlyCaps($className)),
 			'w'
 		);
 		return new self($f, new Simple(), $namespace);
