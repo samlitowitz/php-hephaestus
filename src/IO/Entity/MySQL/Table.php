@@ -2,6 +2,7 @@
 
 namespace PhpHephaestus\IO\Entity\MySQL;
 
+use InvalidArgumentException;
 use PDO;
 use PhpHephaestus\App\Console\Configurable;
 use PhpHephaestus\IntermediateRepresentation\Entity;
@@ -26,9 +27,64 @@ final class Table implements Configurable, Reader
 		$this->tableName = $tableName;
 	}
 
-	public function configure(array $config): void
+	public static function configure(array $config): self
 	{
-		// TODO: Implement configure() method.
+		if (!\array_key_exists('connection', $config)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'%s: missing required configuration option `connection`',
+					__CLASS__
+				)
+			);
+		}
+
+		if (!\array_key_exists('table', $config)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'%s: missing required configuration option `table`',
+					__CLASS__
+				)
+			);
+		}
+
+		[
+			'connection' => $connection,
+			'table' => $table,
+		] = $config;
+
+		foreach (['host', 'database', 'port', 'user', 'password'] as $option) {
+			if (!\array_key_exists($option, $connection)) {
+				throw new InvalidArgumentException(
+					sprintf(
+						'%s: missing required `connection` option `%s`',
+						__CLASS__,
+						$option
+					)
+				);
+			}
+		}
+
+		[
+			'host' => $host,
+			'database' => $database,
+			'port' => $port,
+			'user' => $user,
+			'password' => $password,
+		] = $connection;
+
+		return new self(
+			new PDO(
+				sprintf(
+					'mysql:host=%s;dbname=%s;port=%d',
+					$host,
+					$database,
+					$port
+				),
+				$user,
+				$password
+			),
+			$table
+		);
 	}
 
 	public function read(): EntityCollection
