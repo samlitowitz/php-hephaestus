@@ -5,6 +5,8 @@ namespace PhpHephaestus\App\Console\Command;
 use InvalidArgumentException;
 use PhpHephaestus\App\Console\CLI;
 use PhpHephaestus\App\Console\Config;
+use PhpHephaestus\IO\Entity\Reader;
+use PhpHephaestus\IO\Entity\Writer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -28,29 +30,63 @@ final class Pipe extends Command
 			->addArgument(
 				self::TARGET_ARG,
 				InputArgument::REQUIRED,
-				'Sink to drain IR'
+				'Target'
 			);
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		$cfgFile = \file_get_contents($input->getArgument(CLI::CONFIG_ARG));
-		$cfg = Config::initialize($cfgFile);
+		$configFile = \file_get_contents($input->getArgument(CLI::CONFIG_ARG));
+		$config = Config::initialize($configFile);
 
-		$source = $input->getArgument(self::SOURCE_ARG);
-		$sink = $input->getArgument(self::TARGET_ARG);
+		$sourceName = $input->getArgument(self::SOURCE_ARG);
+		$targetName = $input->getArgument(self::TARGET_ARG);
 
-		if (!$cfg->hasSource($source)) {
-			throw new InvalidArgumentException('Undefined source ' . $source);
+		if (!$config->hasSource($sourceName)) {
+			throw new InvalidArgumentException('Undefined source ' . $sourceName);
 		}
-		if (!$cfg->hasTarget($sink)) {
-			throw new InvalidArgumentException('Undefined sink ' . $sink);
+		if (!$config->hasTarget($targetName)) {
+			throw new InvalidArgumentException('Undefined sink ' . $targetName);
 		}
-		$sourceData = $cfg->getSource($source);
-		$sinkData = $cfg->getTarget($sink);
+		$sourceData = $config->getSource($sourceName);
+		$targetData = $config->getTarget($targetName);
 
 		[
 			'class' => $sourceClass,
+			'config' => $sourceConfig,
 		] = $sourceData;
+		if (!\class_exists($sourceClass)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'source %s: class %s does not exist',
+					$sourceName,
+					$sourceClass
+				)
+			);
+		}
+		/** @var Reader $source */
+		$source = \call_user_func_array([$sourceClass, 'configure'], $sourceConfig);
+
+		[
+			'class' => $targetClass,
+			'config' => $targetConfig,
+		] = $targetData;
+		if (!\class_exists($targetClass)) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'target %s: class %s does not exist',
+					$targetName,
+					$targetClass
+				)
+			);
+		}
+
+		$entities = $source->read();
+		foreach ($entities as $entity) {
+			$targetConfig['className'] = $entity->getName();
+			/** @var Writer $target */
+			$target = \call_user_func_array([$targetClass, 'configure'], $targetConfig);
+			$target->write($entity);
+		}
 	}
 }
