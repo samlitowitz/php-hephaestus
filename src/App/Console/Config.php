@@ -5,12 +5,12 @@ namespace PhpHephaestus\App\Console;
 final class Config
 {
 	private array $sources;
-	private array $sinks;
+	private array $targets;
 
-	private function __construct(array $sources, array $sinks)
+	private function __construct(array $sources, array $targets)
 	{
 		$this->sources = $sources;
-		$this->sinks = $sinks;
+		$this->targets = $targets;
 	}
 
 	public static function initialize(string $json): Config
@@ -18,9 +18,9 @@ final class Config
 		$raw = \json_decode($json, true);
 		[
 			'sources' => $sources,
-			'sinks' => $sinks,
+			'targets' => $targets,
 		] = $raw;
-		return new Config($sources, $sinks);
+		return new Config($sources, $targets);
 	}
 
 	public function hasSource(string $source): bool
@@ -28,9 +28,9 @@ final class Config
 		return \array_key_exists($source, $this->sources);
 	}
 
-	public function hasSink(string $sink): bool
+	public function hasTarget(string $target): bool
 	{
-		return \array_key_exists($sink, $this->sinks);
+		return \array_key_exists($target, $this->targets);
 	}
 
 	public function getSource(string $source): ?array
@@ -41,11 +41,11 @@ final class Config
 		return $this->sources[$source];
 	}
 
-	public function getSink(string $sink): ?array
+	public function getTarget(string $target): ?array
 	{
-		if (!$this->hasSink($sink)) {
+		if (!$this->hasTarget($target)) {
 			return null;
 		}
-		return $this->sinks[$sink];
+		return $this->targets[$target];
 	}
 }

@@ -1,5 +1,5 @@
 {
-	"source": {
+	"sources": {
 		"mysqlIntegerTest": {
 			"class": "PhpHephaestus\\IO\\Entity\\MySQL\\Table",
 			"config": {
@@ -14,5 +14,7 @@
 			}
 		}
 	},
-	"sink": {}
+	"targets": {
+
+	}
 }

@@ -15,7 +15,7 @@ final class Pipe extends Command
 	protected static $defaultName = 'pipe';
 	protected static $defaultDescription = 'Pipe sources to sinks';
 	private const SOURCE_ARG = 'source';
-	private const SINK_ARG = 'sink';
+	private const TARGET_ARG = 'target';
 
 	protected function configure(): void
 	{
@@ -26,7 +26,7 @@ final class Pipe extends Command
 				'Source to supply IR'
 			)
 			->addArgument(
-				self::SINK_ARG,
+				self::TARGET_ARG,
 				InputArgument::REQUIRED,
 				'Sink to drain IR'
 			);
@@ -38,16 +38,16 @@ final class Pipe extends Command
 		$cfg = Config::initialize($cfgFile);
 
 		$source = $input->getArgument(self::SOURCE_ARG);
-		$sink = $input->getArgument(self::SINK_ARG);
+		$sink = $input->getArgument(self::TARGET_ARG);
 
 		if (!$cfg->hasSource($source)) {
 			throw new InvalidArgumentException('Undefined source ' . $source);
 		}
-		if (!$cfg->hasSink($sink)) {
+		if (!$cfg->hasTarget($sink)) {
 			throw new InvalidArgumentException('Undefined sink ' . $sink);
 		}
 		$sourceData = $cfg->getSource($source);
-		$sinkData = $cfg->getSink($sink);
+		$sinkData = $cfg->getTarget($sink);
 
 		[
 			'class' => $sourceClass,
