@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class Pipe extends Command
 {
 	protected static $defaultName = 'pipe';
-	protected static $defaultDescription = 'Pipe sources to sinks';
+	protected static $defaultDescription = 'Pipe sources to targets';
 	private const SOURCE_ARG = 'source';
 	private const TARGET_ARG = 'target';
 
