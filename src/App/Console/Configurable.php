@@ -4,5 +4,5 @@ namespace PhpHephaestus\App\Console;
 
 interface Configurable
 {
-	public function configure(array $config): void;
+	public static function configure(array $config): self;
 }
