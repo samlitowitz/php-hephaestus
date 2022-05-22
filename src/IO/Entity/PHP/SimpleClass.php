@@ -7,6 +7,7 @@ use PhpHephaestus\App\Console\Configurable;
 use PhpHephaestus\IntermediateRepresentation\Entity;
 use PhpHephaestus\IO\Entity\Writer;
 use PhpHephaestus\IO\Type\PHP\Simple;
+use PhpHephaestus\OS\File;
 use PhpHephaestus\PSR\PSR1;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Expr\Assign;
