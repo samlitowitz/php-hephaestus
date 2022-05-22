@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+use PhpHephaestus\App\Console\Command\Generate\Tests as GenerateTestsCommand;
+use PhpHephaestus\App\Console\CLI;
+use PhpHephaestus\App\Console\Command\Pipe as PipeCommand;
+use PhpHephaestus\App\Console\Command\Populate\MySQL as MySQLPopulateCommand;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$app = new CLI();
+
+$app->add(new GenerateTestsCommand(__DIR__ . '/../tests', 'PhpHephaestus\\Tests\\'));
+$app->add(new PipeCommand());
+$app->add(new MySQLPopulateCommand());
+
+$app->run();
