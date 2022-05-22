@@ -14,6 +14,7 @@ use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Integer;
 use PhpHephaestus\IntermediateRepresentation\Type\Scalar\Time;
 use PhpHephaestus\IO\Entity\Writer;
 use PhpHephaestus\IO\Type\PHP\Simple;
+use PhpHephaestus\OS\File;
 use PhpHephaestus\PSR\PSR1;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Arg;
