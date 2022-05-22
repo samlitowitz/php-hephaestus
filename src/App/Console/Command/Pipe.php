@@ -34,9 +34,18 @@ final class Pipe extends Command
 			);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
-		$configFile = \file_get_contents($input->getArgument(CLI::CONFIG_ARG));
+		$configFileName = $input->getOption(CLI::CONFIG_OPT);
+		$configFile = \file_get_contents($configFileName);
+		if ($configFile === false) {
+			throw new InvalidArgumentException(
+				sprintf(
+					'unable to load config %s',
+					$configFileName
+				)
+			);
+		}
 		$config = Config::initialize($configFile);
 
 		$sourceName = $input->getArgument(self::SOURCE_ARG);
@@ -65,7 +74,7 @@ final class Pipe extends Command
 			);
 		}
 		/** @var Reader $source */
-		$source = \call_user_func_array([$sourceClass, 'configure'], $sourceConfig);
+		$source = \call_user_func_array([$sourceClass, 'configure'], [$sourceConfig]);
 
 		[
 			'class' => $targetClass,
@@ -85,8 +94,10 @@ final class Pipe extends Command
 		foreach ($entities as $entity) {
 			$targetConfig['className'] = $entity->getName();
 			/** @var Writer $target */
-			$target = \call_user_func_array([$targetClass, 'configure'], $targetConfig);
+			$target = \call_user_func_array([$targetClass, 'configure'], [$targetConfig]);
 			$target->write($entity);
 		}
+
+		return Command::SUCCESS;
 	}
 }
