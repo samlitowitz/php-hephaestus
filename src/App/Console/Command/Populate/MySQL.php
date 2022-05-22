@@ -73,7 +73,7 @@ final class MySQL extends Command
 		);
 
 		$pdo->query(
-			"CREATE TABLE `integer_test` (
+			"CREATE TABLE IF NOT EXISTS `integer_test` (
 				`int` INT,
 				`smallint` SMALLINT,
 				`mediumint` MEDIUMINT,
@@ -82,7 +82,7 @@ final class MySQL extends Command
 		);
 
 		$pdo->query(
-			"CREATE TABLE `fixed_test` (
+			"CREATE TABLE IF NOT EXISTS `fixed_test` (
 				`decimal_both` DECIMAL(2, 2),
 				`decimal_one` DECIMAL(2),
 				`numeric_both` NUMERIC(2, 2),
@@ -91,7 +91,7 @@ final class MySQL extends Command
 		);
 
 		$pdo->query(
-			"CREATE TABLE `float_test` (
+			"CREATE TABLE IF NOT EXISTS `float_test` (
 				`float` FLOAT,
 				`double_precision` DOUBLE PRECISION
 			)"
