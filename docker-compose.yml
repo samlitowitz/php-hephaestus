@@ -3,16 +3,15 @@ services:
     php:
         image: mobtitude/php-xdebug:8.0-cli
         entrypoint: ["/usr/local/bin/php"]
-        environment:
-            - MYSQL_HOST=mysql
-            - MYSQL_DATABASE=db
-            - MYSQL_PORT=3306
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=password
+        env_file:
+            -   ./docker/php/env.env
+        ports:
+            - "9000:9000"
         depends_on:
             -   mysql
         volumes:
             - ./:/app
+            - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
 
     mysql:
         image: mysql:5.7
