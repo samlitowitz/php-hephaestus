@@ -3,8 +3,6 @@
 namespace PhpHephaestus\App\Console\Command\Populate;
 
 use PDO;
-use PhpHephaestus\App\Tests\ScalarProps;
-use PhpHephaestus\IO\Entity\MySQL\Table;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,23 +23,33 @@ final class MySQL extends Command
 		$this
 			->addArgument(
 				self::MYSQL_HOST,
-				InputArgument::OPTIONAL
+				InputArgument::OPTIONAL,
+				'MySQL host',
+				getenv('MYSQL_HOST')
 			)
 			->addArgument(
 				self::MYSQL_DATABASE,
-				InputArgument::OPTIONAL
+				InputArgument::OPTIONAL,
+				'MySQL database schema',
+				getenv('MYSQL_DATABASE')
 			)
 			->addArgument(
 				self::MYSQL_PORT,
-				InputArgument::OPTIONAL
+				InputArgument::OPTIONAL,
+				'MySQL port',
+				getenv('MYSQL_PORT')
 			)
 			->addArgument(
 				self::MYSQL_USER,
-				InputArgument::OPTIONAL
+				InputArgument::OPTIONAL,
+				'MySQL user',
+				getenv('MYSQL_USER')
 			)
 			->addArgument(
 				self::MYSQL_PASSWORD,
-				InputArgument::OPTIONAL
+				InputArgument::OPTIONAL,
+				'MySQL password',
+				getenv('MYSQL_PASSWORD')
 			);
 	}
 
